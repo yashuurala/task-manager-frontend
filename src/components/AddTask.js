@@ -14,10 +14,16 @@ function AddTask({ onTaskAdded }) {
     }
 
     try {
+      // Fix timezone offset before sending
+      const localDate = new Date(deadline);
+      const offset = localDate.getTimezoneOffset(); // in minutes
+      const corrected = new Date(localDate.getTime() - offset * 60000);
+
       await axios.post(`${API_BASE_URL}/api/tasks`, {
         title,
-        deadline, // will include both date + time
+        deadline: corrected, // ✅ send corrected local datetime
       });
+
       onTaskAdded();
       setTitle("");
       setDeadline("");
