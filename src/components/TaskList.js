@@ -57,9 +57,10 @@ function TaskList({ refresh }) {
                 <br />
                 <small className="text-muted">
                   Deadline:{" "}
-                  {new Date(task.deadline).toLocaleString([], {
+                  {new Date(task.deadline).toLocaleString("en-IN", {
                     dateStyle: "short",
                     timeStyle: "short",
+                    hour12: true,
                   })}
                 </small>
               </div>
