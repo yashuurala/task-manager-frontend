@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import AddTask from "./components/AddTask";
+import TaskList from "./components/TaskList";
 
 function App() {
+  const [refresh, setRefresh] = useState(false);
+
+  const handleTaskAdded = () => {
+    setRefresh(!refresh);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container mt-5">
+      <div className="card shadow p-4">
+        <h1 className="text-center mb-4">Cloud Task Manager</h1>
+        <AddTask onTaskAdded={handleTaskAdded} />
+        <hr />
+        <TaskList refresh={refresh} />
+      </div>
     </div>
   );
 }
