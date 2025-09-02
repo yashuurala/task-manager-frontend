@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config"; // ✅ import base URL
 
 function TaskList({ refresh }) {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/tasks")
+      .get(`${API_BASE_URL}/api/tasks`)
       .then((res) => setTasks(res.data))
       .catch((err) => console.error("Error fetching tasks:", err));
   }, [refresh]);
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await axios.delete(`${API_BASE_URL}/api/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (err) {
       console.error("Error deleting task:", err);
@@ -22,7 +23,7 @@ function TaskList({ refresh }) {
 
   const handleToggle = async (id, completed) => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/tasks/${id}`, {
+      const res = await axios.put(`${API_BASE_URL}/api/tasks/${id}`, {
         completed: !completed,
       });
       setTasks(tasks.map((task) => (task._id === id ? res.data : task)));

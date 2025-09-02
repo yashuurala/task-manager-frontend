@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../config"; // ✅ import the base URL
 
 function AddTask({ onTaskAdded }) {
   const [title, setTitle] = useState("");
@@ -13,7 +14,7 @@ function AddTask({ onTaskAdded }) {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/tasks", {
+      await axios.post(`${API_BASE_URL}/api/tasks`, {
         title,
         deadline, // will include both date + time
       });
